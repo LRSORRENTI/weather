@@ -36,39 +36,70 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var console_1 = require("console");
 var openmeteo_1 = require("openmeteo");
-// Async function to handle the API call and data processing
-function fetchAndProcessWeatherData() {
+function getDailyWeather() {
     return __awaiter(this, void 0, void 0, function () {
-        var params, url, responses, response, utcOffsetSeconds, timezone, timezoneAbbreviation, latitude, longitude, hourly, range, weatherData, i;
+        // Function to format date to MM-DD-YYYY
+        function formatDate(date) {
+            return "".concat(date.getMonth() + 1, "-").concat(date.getDate(), "-").concat(date.getFullYear());
+        }
+        // Function to format the hour in 12-hour format with AM/PM
+        function formatHour(hour) {
+            var hourFormatted = hour % 12 || 12; // Convert 0 to 12 for 12 AM
+            var amPm = hour < 12 ? 'am' : 'pm';
+            return "".concat(hourFormatted).concat(amPm);
+        }
+        var params, url, responses, response, range, utcOffsetSeconds_1, timezone, timezoneAbbreviation, latitude, longitude, current, hourly, daily, weatherData, i, date, formattedDate, formattedHour, i, date, formattedDate, sunriseDate, sunsetDate, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     params = {
                         "latitude": 52.52,
                         "longitude": 13.41,
-                        "hourly": ["temperature_2m", "apparent_temperature", "precipitation_probability", "precipitation", "rain", "showers", "snowfall", "snow_depth", "weather_code", "is_day"],
+                        "current": ["temperature_2m", "apparent_temperature", "is_day", "precipitation", "rain", "showers", "snowfall", "wind_speed_10m"],
+                        "hourly": ["temperature_2m", "apparent_temperature", "precipitation_probability", "precipitation", "rain", "showers", "snowfall", "wind_speed_10m"],
+                        "daily": ["sunrise", "sunset"],
                         "temperature_unit": "fahrenheit",
+                        "wind_speed_unit": "mph",
+                        "precipitation_unit": "inch",
                         "timezone": "America/Chicago",
-                        "forecast_days": 1
+                        "forecast_days": 1,
+                        "forecast_hours": 24
                     };
                     url = "https://api.open-meteo.com/v1/forecast";
-                    return [4 /*yield*/, (0, openmeteo_1.fetchWeatherApi)(url, params)];
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, (0, openmeteo_1.fetchWeatherApi)(url, params)];
+                case 2:
                     responses = _a.sent();
                     response = responses[0];
-                    utcOffsetSeconds = response.utcOffsetSeconds();
+                    range = function (start, stop, step) {
+                        return Array.from({ length: (stop - start) / step }, function (_, i) { return start + i * step; });
+                    };
+                    utcOffsetSeconds_1 = response.utcOffsetSeconds();
                     timezone = response.timezone();
                     timezoneAbbreviation = response.timezoneAbbreviation();
                     latitude = response.latitude();
                     longitude = response.longitude();
+                    current = response.current();
                     hourly = response.hourly();
-                    range = function (start, stop, step) {
-                        return Array.from({ length: (stop - start) / step }, function (_, i) { return start + i * step; });
-                    };
+                    daily = response.daily();
                     weatherData = {
+                        current: {
+                            time: new Date((Number(current.time()) + utcOffsetSeconds_1) * 1000),
+                            temperature2m: current.variables(0).value(),
+                            apparentTemperature: current.variables(1).value(),
+                            isDay: current.variables(2).value(),
+                            precipitation: current.variables(3).value(),
+                            rain: current.variables(4).value(),
+                            showers: current.variables(5).value(),
+                            snowfall: current.variables(6).value(),
+                            windSpeed10m: current.variables(7).value()
+                        },
                         hourly: {
-                            time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(function (t) { return new Date((t + utcOffsetSeconds) * 1000); }),
+                            time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(function (t) { return new Date((t + utcOffsetSeconds_1) * 1000); }),
                             temperature2m: hourly.variables(0).valuesArray(),
                             apparentTemperature: hourly.variables(1).valuesArray(),
                             precipitationProbability: hourly.variables(2).valuesArray(),
@@ -76,19 +107,49 @@ function fetchAndProcessWeatherData() {
                             rain: hourly.variables(4).valuesArray(),
                             showers: hourly.variables(5).valuesArray(),
                             snowfall: hourly.variables(6).valuesArray(),
-                            snowDepth: hourly.variables(7).valuesArray(),
-                            weatherCode: hourly.variables(8).valuesArray(),
-                            isDay: hourly.variables(9).valuesArray()
+                            windSpeed10m: hourly.variables(7).valuesArray()
+                        },
+                        daily: {
+                            time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(function (t) { return new Date((t + utcOffsetSeconds_1) * 1000); }),
+                            sunrise: daily.variables(0).valuesArray(),
+                            sunset: daily.variables(1).valuesArray()
                         }
                     };
-                    // Logging the weather data
+                    // `weatherData` now contains a simple structure with arrays for datetime and weather data
                     for (i = 0; i < weatherData.hourly.time.length; i++) {
-                        console.log("\n            date: ".concat(weatherData.hourly.time[i].toISOString(), ",\n            temp 2m ").concat(weatherData.hourly.temperature2m[i], ",\n            apprent temp: ").concat(weatherData.hourly.apparentTemperature[i], ",\n            precipitation probability: ").concat(weatherData.hourly.precipitationProbability[i], ",\n            precipitation: ").concat(weatherData.hourly.precipitation[i], ",\n            rain: ").concat(weatherData.hourly.rain[i], ",\n            showers: ").concat(weatherData.hourly.showers[i], ",\n            snowfall: ").concat(weatherData.hourly.snowfall[i], ",\n            snow depth: ").concat(weatherData.hourly.snowDepth[i], ",\n            weather_code: ").concat(weatherData.hourly.weatherCode[i], ",\n            day or night ").concat(weatherData.hourly.isDay[i], "\n            "));
+                        date = weatherData.hourly.time[i];
+                        formattedDate = formatDate(date);
+                        formattedHour = formatHour(date.getHours());
+                        console.log("Date: ".concat(formattedDate, ", Time: ").concat(formattedHour));
+                        console.log("  Current Temp: ".concat(weatherData.hourly.temperature2m[i].toFixed(0), "\u00B0F"));
+                        console.log("  Apparent Temp: ".concat(weatherData.hourly.apparentTemperature[i].toFixed(0), "\u00B0F"));
+                        console.log("  Precipitation Probability: ".concat(weatherData.hourly.precipitationProbability[i], "%"));
+                        console.log("  Precipitation: ".concat(weatherData.hourly.precipitation[i], " inches"));
+                        console.log("  Rain: ".concat(weatherData.hourly.rain[i], " inches"));
+                        console.log("  Showers: ".concat(weatherData.hourly.showers[i]));
+                        console.log("  Snowfall: ".concat(weatherData.hourly.snowfall[i], " inches"));
+                        console.log("  Wind Speed: ".concat(weatherData.hourly.windSpeed10m[i], " mph"));
+                        console.log('-----------------------------------');
                     }
-                    return [2 /*return*/];
+                    // Logging the daily weather data
+                    for (i = 0; i < weatherData.daily.time.length; i++) {
+                        date = weatherData.daily.time[i];
+                        formattedDate = formatDate(date);
+                        sunriseDate = new Date(weatherData.daily.sunrise[i] * 1000);
+                        sunsetDate = new Date(weatherData.daily.sunset[i] * 1000);
+                        console.log("Date: ".concat(formattedDate));
+                        console.log("  Sunrise: ".concat(sunriseDate.toISOString()));
+                        console.log("  Sunset: ".concat(sunsetDate.toISOString()));
+                        console.log('-----------------------------------');
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_1 = _a.sent();
+                    console.error('fetching data or processing error:', console_1.error);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-// Call the async function
-fetchAndProcessWeatherData();
+getDailyWeather();
