@@ -16,14 +16,21 @@ import {
     SelectValue,
   } from "@/components/ui/select"
   import { Button } from "./ui/button"
-   
-  export default function WeatherCard() {
+  import WeatherComponent from './WeatherComponent'
+import { useState } from "react"
+
+
+
+
+  export default function WeatherCard({weatherData}) {
+    const date = new Date().toLocaleDateString();
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return (
     <div className="flex justify-center">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Daily Weather</CardTitle>
-          <CardDescription>Forecast for today</CardDescription>
+          <CardTitle>Current Temperature</CardTitle>
+          <CardDescription>{date} {time}</CardDescription>
         </CardHeader>
         <CardContent>
           <form>

@@ -25,8 +25,8 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         <nav className='flex justify-between'>
-          <h1>
-            Weather App
+          <h1 className='pl-3'>
+            Milwaukee Weather
           </h1>
       <ModeToggle/>
         </nav>

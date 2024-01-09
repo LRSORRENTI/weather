@@ -2,8 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { fetchWeatherApi } from 'openmeteo';
-
-function TestWeather() {
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
+  import { Label } from '@radix-ui/react-dropdown-menu';
+  import { Input } from './ui/input';
+function WeatherComponent() {
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -46,11 +55,41 @@ function TestWeather() {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     // Render your processed weather data here
     return (
         <div>
             <h1>Weather Data</h1>
+            <div className="main-card-wrap flex justify-center">
+            <Card className="w-[350px]" >
+      <CardHeader className='flex justify-center'>
+        <CardTitle className='flex justify-between'> <p> {new Date().toLocaleDateString()}</p><p>{time}</p></CardTitle>
+        <CardDescription>Deploy your new project in one-click.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form>
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <div className='flex justify-center'>Current Temperature: {weatherData.current.temperature2m.toFixed(1) + "°F"}</div>
+              <Input id="name" placeholder="Name of your project" />
+            </div>
+          </div>
+        </form>
+      </CardContent>
+      <CardFooter className="flex justify-between">
+      </CardFooter>
+    </Card>
+    </div>
+            <Card>
+            <div>
+                {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
+                    <div key={index}>
+                        <p>Date: {new Date().toLocaleDateString()}</p>
+                        <p>Current Temp: {weatherData.current.temperature2m.toFixed(1) + "°F"}</p>
+                    </div>
+                ))}
+            </div>
+            </Card>
             <div>
                 {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
                     <div key={index}>
@@ -251,4 +290,4 @@ function processWeatherData(response) {
     }
 }
 
-export default TestWeather;
+export default WeatherComponent;
