@@ -52,22 +52,10 @@ function TestWeather() {
         <div>
             <h1>Weather Data</h1>
             <div>
-                <h2>Current Weather</h2>
-                {weatherData && weatherData.current && (
-                    <div>
-                        <p>Time: {new Date(weatherData.current.time).toLocaleTimeString()}</p>
-                        <p>Temperature: {weatherData.current.temperature2m.toFixed(0)}°F</p>
-                        {/* Include other current weather details as needed */}
-                    </div>
-                )}
-            </div>
-            <div>
-                <h2>Daily Forecast</h2>
                 {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
                     <div key={index}>
                         <p>Date: {new Date(time).toLocaleDateString()}</p>
-                        <p>Sunrise: {weatherData.daily.sunrise && weatherData.daily.sunrise[index] ? new Date(weatherData.daily.sunrise[index] * 1000).toLocaleTimeString() : 'N/A'}</p>
-                        <p>Sunset: {weatherData.daily.sunset && weatherData.daily.sunset[index] ? new Date(weatherData.daily.sunset[index] * 1000).toLocaleTimeString() : 'N/A'}</p>
+                        <p>Current Temp: {weatherData.current.temperature2m.toFixed(1) + "°F"}</p>
                     </div>
                 ))}
             </div>
