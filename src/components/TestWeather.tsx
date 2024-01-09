@@ -62,16 +62,6 @@ function TestWeather() {
                 )}
             </div>
             <div>
-    <h2>Hourly Forecast</h2>
-    {weatherData && weatherData.hourly && weatherData.hourly.temperature2m.map((temp, index) => (
-        <div key={index}>
-            <p>Time: {weatherData.hourly.formattedTime[index].formattedHour}</p>
-            <p>Temperature: {Number.isFinite(temp) ? temp.toFixed(2) : 'N/A'}°F</p>
-            {/* Include other hourly details as needed */}
-        </div>
-    ))}
-</div>
-            <div>
                 <h2>Daily Forecast</h2>
                 {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
                     <div key={index}>
@@ -81,6 +71,105 @@ function TestWeather() {
                     </div>
                 ))}
             </div>
+            <div>
+           <h2>Hourly</h2>
+           <p>
+           12 AM:
+           {" " + weatherData.hourly.temperature2m[0].toFixed(1) + "°F"}
+           </p>
+           <p>
+            1 AM:
+           {" " + weatherData.hourly.temperature2m[1].toFixed(1) + "°F"}
+           </p>
+           <p>
+            2 AM:
+           {" " + weatherData.hourly.temperature2m[2].toFixed(1) + "°F"}
+           </p>
+           <p>
+            3 AM:
+           {" " + weatherData.hourly.temperature2m[3].toFixed(1) + "°F"}
+           </p>
+           <p>
+            4 AM:
+           {" " + weatherData.hourly.temperature2m[4].toFixed(1) + "°F"}
+           </p>
+           <p>
+            5 AM:
+           {" " + weatherData.hourly.temperature2m[5].toFixed(1) + "°F"}
+           </p>
+           <p>
+           6 AM:
+           {" " + weatherData.hourly.temperature2m[6].toFixed(1) + "°F"}
+           </p>
+           <p>
+            7 AM:
+           {" " + weatherData.hourly.temperature2m[7].toFixed(1) + "°F"}
+           </p>
+           <p>
+            8 AM:
+           {" " + weatherData.hourly.temperature2m[8].toFixed(1) + "°F"}
+           </p>
+           <p>
+            9 AM:
+           {" " + weatherData.hourly.temperature2m[9].toFixed(1) + "°F"}
+           </p>
+           <p>
+            10 AM:
+           {" " + weatherData.hourly.temperature2m[10].toFixed(1) + "°F"}
+           </p>
+           <p>
+            11 AM:
+           {" " + weatherData.hourly.temperature2m[11].toFixed(1) + "°F"}
+           </p>
+           <p>
+           12 PM:
+           {" " + weatherData.hourly.temperature2m[12].toFixed(1) + "°F"}
+           </p>
+           <p>
+            1 PM:
+           {" " + weatherData.hourly.temperature2m[13].toFixed(1) + "°F"}
+           </p>
+           <p>
+            2 PM:
+           {" " + weatherData.hourly.temperature2m[14].toFixed(1) + "°F"}
+           </p>
+           <p>
+            3 PM:
+           {" " + weatherData.hourly.temperature2m[15].toFixed(1) + "°F"}
+           </p>
+           <p>
+            4 PM:
+           {" " + weatherData.hourly.temperature2m[16].toFixed(1) + "°F"}
+           </p>
+           <p>
+            5 PM:
+           {" " + weatherData.hourly.temperature2m[17].toFixed(1) + "°F"}
+           </p>
+           <p>
+           6 PM:
+           {" " + weatherData.hourly.temperature2m[18].toFixed(1) + "°F"}
+           </p>
+           <p>
+            7 PM:
+           {" " + weatherData.hourly.temperature2m[19].toFixed(1) + "°F"}
+           </p>
+           <p>
+            8 PM:
+           {" " + weatherData.hourly.temperature2m[20].toFixed(1) + "°F"}
+           </p>
+           <p>
+            9 PM:
+           {" " + weatherData.hourly.temperature2m[21].toFixed(1) + "°F"}
+           </p>
+           <p>
+            10 PM:
+           {" " + weatherData.hourly.temperature2m[22].toFixed(1) + "°F"}
+           </p>
+           <p>
+            11 PM:
+           {" " + weatherData.hourly.temperature2m[23].toFixed(1) + "°F"}
+           </p>
+           </div>
         </div>
     );
     
