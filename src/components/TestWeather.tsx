@@ -12,8 +12,8 @@ function TestWeather() {
         const fetchData = async () => {
             try {
                 const params = {
-                    "latitude": 52.52,
-                    "longitude": 13.41,
+                    "latitude": 43.0389,
+                    "longitude": -87.9065,
                     "current": ["temperature_2m", "apparent_temperature", "is_day", "precipitation", "rain", "showers", "snowfall", "wind_speed_10m"],
                     "hourly": ["temperature_2m", "apparent_temperature", "precipitation_probability", "precipitation", "rain", "showers", "snowfall", "wind_speed_10m"],
                     "daily": ["sunrise", "sunset"],
@@ -54,7 +54,7 @@ function TestWeather() {
             <div>
                 {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
                     <div key={index}>
-                        <p>Date: {new Date(time).toLocaleDateString()}</p>
+                        <p>Date: {new Date().toLocaleDateString()}</p>
                         <p>Current Temp: {weatherData.current.temperature2m.toFixed(1) + "°F"}</p>
                     </div>
                 ))}
