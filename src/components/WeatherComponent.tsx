@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { fetchWeatherApi } from 'openmeteo';
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
 import {
     Card,
     CardContent,
@@ -55,23 +56,25 @@ function WeatherComponent() {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     // Render your processed weather data here
     return (
         <div>
-            <h1>Weather Data</h1>
             <div className="main-card-wrap flex justify-center">
             <Card className="w-[350px]" >
       <CardHeader className='flex justify-center'>
+        <div>
+            {weatherData.current.isDay === 0 ? <SunIcon/> : <MoonIcon/>}
+        </div>
         <CardTitle className='flex justify-between'> <p> {new Date().toLocaleDateString()}</p><p>{time}</p></CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent>
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <div className='flex justify-center'>Current Temperature: {weatherData.current.temperature2m.toFixed(1) + "°F"}</div>
-              <Input id="name" placeholder="Name of your project" />
+              <div className='flex justify-center text-2xl'>Current Temperature</div>
+                <div className='flex justify-center text-4xl' style={{color: "skyblue"}}>{weatherData.current.temperature2m.toFixed(1) + "°F"}</div>
             </div>
           </div>
         </form>
@@ -80,24 +83,7 @@ function WeatherComponent() {
       </CardFooter>
     </Card>
     </div>
-            <Card>
-            <div>
-                {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
-                    <div key={index}>
-                        <p>Date: {new Date().toLocaleDateString()}</p>
-                        <p>Current Temp: {weatherData.current.temperature2m.toFixed(1) + "°F"}</p>
-                    </div>
-                ))}
-            </div>
-            </Card>
-            <div>
-                {weatherData && weatherData.daily && weatherData.daily.time.map((time, index) => (
-                    <div key={index}>
-                        <p>Date: {new Date().toLocaleDateString()}</p>
-                        <p>Current Temp: {weatherData.current.temperature2m.toFixed(1) + "°F"}</p>
-                    </div>
-                ))}
-            </div>
+        
             <div>
            <h2>Hourly</h2>
            <p>
