@@ -13,6 +13,9 @@ import {
   } from "@/components/ui/card"
   import { Label } from '@radix-ui/react-dropdown-menu';
   import { Input } from './ui/input';
+  import './styles/hourly.css'
+
+
 function WeatherComponent() {
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -65,7 +68,7 @@ function WeatherComponent() {
             <Card className="w-[350px]" >
       <CardHeader className='flex justify-center'>
         <div>
-            {weatherData.current.isDay === 0 ? <SunIcon/> : <MoonIcon/>}
+            {weatherData.current.isDay === 1 ? <SunIcon/> : <MoonIcon/>}
         </div>
         <CardTitle className='flex justify-between'> <p> {new Date().toLocaleDateString()}</p><p>{time}</p></CardTitle>
       </CardHeader>
@@ -83,9 +86,10 @@ function WeatherComponent() {
       </CardFooter>
     </Card>
     </div>
-        
-            <div>
-           <h2>Hourly</h2>
+            <div className='flex justify-center'>
+            <div className='flex justify-center flex-col'>
+           <h2 style={{textAlign: "center"}}>Hourly</h2>
+           <div className="hourly-temp-wrap">
            <p>
            12 AM:
            {" " + weatherData.hourly.temperature2m[0].toFixed(1) + "°F"}
@@ -183,7 +187,10 @@ function WeatherComponent() {
            {" " + weatherData.hourly.temperature2m[23].toFixed(1) + "°F"}
            </p>
            </div>
+           </div>
+           </div>
         </div>
+
     );
     
 }
