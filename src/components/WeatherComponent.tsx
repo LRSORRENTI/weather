@@ -11,9 +11,11 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
+  import { Skeleton } from "@/components/ui/skeleton"
   import { Label } from '@radix-ui/react-dropdown-menu';
   import { Input } from './ui/input';
   import './styles/hourly.css'
+  import WeatherSkeleton from './WeatherSkeleton';
 
 
 function WeatherComponent() {
@@ -57,7 +59,8 @@ function WeatherComponent() {
         fetchData();
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    // if (loading) return <div>Loading...</div>;
+    if (loading) return <WeatherSkeleton/>;
     if (error) return <div>Error: {error.message}</div>;
     let time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
