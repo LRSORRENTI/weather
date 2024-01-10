@@ -89,7 +89,7 @@ function WeatherComponent() {
             <div className='flex justify-center'>
             <div className='flex justify-center flex-col'>
            <h2 style={{textAlign: "center"}}>Hourly</h2>
-           <div style={{maxWidth: "600px"}} className="hourly-temp-wrap sm:flex flex-row flex-wrap justify-evenly col-span-3">
+           <div style={{maxWidth: "700px"}} className="hourly-temp-wrap sm:flex flex-row flex-wrap justify-evenly col-span-3">
            <p>
            12 AM:
            {" " + weatherData.hourly.temperature2m[0].toFixed(1) + "°F"}

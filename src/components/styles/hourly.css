@@ -1,11 +1,11 @@
 .hourly-temp-wrap > p {
   border: 2px solid skyblue;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 13px;
-  padding-right: 13px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 33px;
+  padding-right: 30px;
   border-radius: 4px;
   margin: 10px;
-  margin-bottom: 10px;
+  width: 200px;
 }
