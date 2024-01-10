@@ -65,7 +65,7 @@ function WeatherComponent() {
     return (
         <div>
             <div className="main-card-wrap flex justify-center">
-            <Card className="w-[350px]" >
+            <Card className="w-[350px] mb-10" style={{border: "2px solid skyblue"}} >
       <CardHeader className='flex justify-center'>
         <div>
             {weatherData.current.isDay === 1 ? <SunIcon/> : <MoonIcon/>}
@@ -89,7 +89,7 @@ function WeatherComponent() {
             <div className='flex justify-center'>
             <div className='flex justify-center flex-col'>
            <h2 style={{textAlign: "center"}}>Hourly</h2>
-           <div className="hourly-temp-wrap">
+           <div style={{maxWidth: "600px"}} className="hourly-temp-wrap sm:flex flex-row flex-wrap justify-evenly col-span-3">
            <p>
            12 AM:
            {" " + weatherData.hourly.temperature2m[0].toFixed(1) + "°F"}
