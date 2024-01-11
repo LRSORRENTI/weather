@@ -129,6 +129,7 @@ function getDailyWeather() {
                         console.log("  Showers: ".concat(weatherData.hourly.showers[i]));
                         console.log("  Snowfall: ".concat(weatherData.hourly.snowfall[i], " inches"));
                         console.log("  Wind Speed: ".concat(weatherData.hourly.windSpeed10m[i], " mph"));
+                        console.log("  Sunrise: ".concat(weatherData.daily.sunrise, " sunset: ").concat(weatherData.daily.sunset));
                         console.log('-----------------------------------');
                     }
                     // Logging the daily weather data
@@ -140,6 +141,7 @@ function getDailyWeather() {
                         console.log("Date: ".concat(formattedDate));
                         console.log("  Sunrise: ".concat(sunriseDate.toISOString()));
                         console.log("  Sunset: ".concat(sunsetDate.toISOString()));
+                        console.log(weatherData.daily.time[i].toISOString(), weatherData.daily.sunrise[i], weatherData.daily.sunset[i]);
                         console.log('-----------------------------------');
                     }
                     return [3 /*break*/, 4];

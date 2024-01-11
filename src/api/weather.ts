@@ -75,6 +75,7 @@ const weatherData = {
 
 };
 
+
 // Function to format date to MM-DD-YYYY
 function formatDate(date: any) {
     return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
@@ -101,7 +102,8 @@ for (let i = 0; i < weatherData.hourly.time.length; i++) {
     console.log(`  Showers: ${weatherData.hourly.showers[i]}`);
     console.log(`  Snowfall: ${weatherData.hourly.snowfall[i]} inches`);
     console.log(`  Wind Speed: ${weatherData.hourly.windSpeed10m[i]} mph`);
-    console.log('-----------------------------------');
+    console.log(`  Sunrise: ${weatherData.daily.sunrise} sunset: ${weatherData.daily.sunset}`)
+	console.log('-----------------------------------');
 }
 // Logging the daily weather data
 for (let i = 0; i < weatherData.daily.time.length; i++) {
@@ -115,7 +117,12 @@ for (let i = 0; i < weatherData.daily.time.length; i++) {
     console.log(`Date: ${formattedDate}`);
     console.log(`  Sunrise: ${sunriseDate.toISOString()}`);
     console.log(`  Sunset: ${sunsetDate.toISOString()}`);
-    console.log('-----------------------------------');
+    console.log(
+		weatherData.daily.time[i].toISOString(),
+		weatherData.daily.sunrise[i],
+		weatherData.daily.sunset[i]
+	);
+	console.log('-----------------------------------');
     }
 } catch (err) {
     console.error('fetching data or processing error:', error)
