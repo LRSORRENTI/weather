@@ -128,7 +128,7 @@ function getDailyWeather() {
                         console.log("  Rain: ".concat(weatherData.hourly.rain[i], " inches"));
                         console.log("  Showers: ".concat(weatherData.hourly.showers[i]));
                         console.log("  Snowfall: ".concat(weatherData.hourly.snowfall[i], " inches"));
-                        console.log("  Wind Speed: ".concat(weatherData.hourly.windSpeed10m[i], " mph"));
+                        console.log("  Wind Speed: ".concat(weatherData.hourly.windSpeed10m[i].toFixed(0), " mph"));
                         console.log("  Sunrise: ".concat(weatherData.daily.sunrise, " sunset: ").concat(weatherData.daily.sunset));
                         console.log('-----------------------------------');
                     }

@@ -101,7 +101,7 @@ for (let i = 0; i < weatherData.hourly.time.length; i++) {
     console.log(`  Rain: ${weatherData.hourly.rain[i]} inches`);
     console.log(`  Showers: ${weatherData.hourly.showers[i]}`);
     console.log(`  Snowfall: ${weatherData.hourly.snowfall[i]} inches`);
-    console.log(`  Wind Speed: ${weatherData.hourly.windSpeed10m[i]} mph`);
+    console.log(`  Wind Speed: ${weatherData.hourly.windSpeed10m[i].toFixed(0)} mph`);
     console.log(`  Sunrise: ${weatherData.daily.sunrise} sunset: ${weatherData.daily.sunset}`)
 	console.log('-----------------------------------');
 }
