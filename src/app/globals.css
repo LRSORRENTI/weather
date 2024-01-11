@@ -92,3 +92,10 @@ h2 {
   @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight
   transition-colors first:mt-0;
 }
+
+--tw-ring-offset-color {
+  color: transparent;
+  background-color: transparent;
+  border-color: transparent;
+  border: 2px solid transparent;
+}
