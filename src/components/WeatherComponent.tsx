@@ -17,11 +17,51 @@ import {
   import './styles/hourly.css'
   import WeatherSkeleton from './WeatherSkeleton';
 
+  interface WeatherData {
+    current: {
+      time: Date;
+      temperature2m: number;
+      apparentTemperature: number;
+      isDay: number; 
+      precipitation: number;
+      rain: number;
+      showers: number;
+      snowfall: number;
+      windSpeed10m: number;
+    };
+    hourly: {
+      time: Date[];
+      temperature2m: number[];
+      apparentTemperature: number[];
+      precipitationProbability: number[];
+      precipitation: number[];
+      rain: number[];
+      showers: number[];
+      snowfall: number[];
+      windSpeed10m: number[];
+      formattedTime?: Array<{
+        formattedDate: string;
+        formattedHour: string;
+      }>;
+    };
+    daily: {
+      time: Date[];
+      sunrise: string[]; 
+      sunset: string[];
+      formattedTime?: string[]; 
+    };
+  }
+  
+  interface ErrorState {
+    message: string;
+  }
 
 function WeatherComponent() {
-    const [weatherData, setWeatherData] = useState(null);
+    // const [weatherData, setWeatherData] = useState(null);
+    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
+    const [error, setError] = useState<ErrorState | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,11 +87,12 @@ function WeatherComponent() {
                 console.log("API Response:", response);
 
                 // Process and store the response in a format suitable for your component
-                const processedData = processWeatherData(response);
+                const processedData: any = processWeatherData(response);
                 setWeatherData(processedData);
-            } catch (err) {
-                setError(err);
-            } finally {
+            } catch (err: any) {
+              setError({ message: err.message || "An unknown error occurred" });
+            }
+             finally {
                 setLoading(false);
             }
         };
@@ -199,10 +240,13 @@ function WeatherComponent() {
 }
 
 // Helper function to process the response
-function processWeatherData(response) {
+function processWeatherData(response: any) {
+    if(!response) {
+      return null;
+    }
     try {
         // Helper function to form time ranges
-        const range = (start, stop, step) =>
+        const range = (start: any, stop: any, step: any) =>
             Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
 
         // Attributes for timezone and location
