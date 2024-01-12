@@ -24,7 +24,7 @@ function WeatherSkeleton() {
       <div className='flex justify-center flex-col'>
         <h2 style={{textAlign: "center", marginTop: "40px"}}>Hourly</h2>
         <div style={{maxWidth: "700px"}} className="hourly-temp-wrap sm:flex flex-row flex-wrap justify-evenly col-span-3">
-          {Array(24).fill().map((_, index) => (
+          {Array(24).fill(null).map((_, index) => (
             <Skeleton key={index} className="skeleton-hourly" style={{
               border: "2px solid skyblue",
               textAlign: "center",
