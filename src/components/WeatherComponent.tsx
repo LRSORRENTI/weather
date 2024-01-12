@@ -39,16 +39,16 @@ import {
       showers: number[];
       snowfall: number[];
       windSpeed10m: number[];
-      formattedTime?: Array<{
+      formattedTime: Array<{
         formattedDate: string;
         formattedHour: string;
       }>;
     };
     daily: {
       time: Date[];
-      sunrise: string[]; 
-      sunset: string[];
-      formattedTime?: string[]; 
+      // sunrise: string[];
+      // sunset: string[];
+      formattedTime: string[];
     };
   }
   
@@ -112,7 +112,7 @@ function WeatherComponent() {
             <Card className="w-[350px] mb-10" style={{border: "2px solid skyblue"}} >
       <CardHeader className='flex justify-center'>
         <div>
-            {weatherData.current.isDay === 1 ? <SunIcon/> : <MoonIcon/>}
+            {weatherData!.current.isDay === 1 ? <SunIcon/> : <MoonIcon/>}
         </div>
         <CardTitle className='flex justify-between'> <p> {new Date().toLocaleDateString()}</p><p>{time}</p></CardTitle>
       </CardHeader>
@@ -121,7 +121,7 @@ function WeatherComponent() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <div className='flex justify-center text-2xl'>Current Temperature</div>
-                <div className='flex justify-center text-4xl' style={{color: "skyblue"}}>{weatherData.current.temperature2m.toFixed(1) + "°F"}</div>
+                <div className='flex justify-center text-4xl' style={{color: "skyblue"}}>{weatherData!.current.temperature2m.toFixed(1) + "°F"}</div>
             </div>
           </div>
         </form>
@@ -136,99 +136,99 @@ function WeatherComponent() {
            <div style={{maxWidth: "700px"}} className="hourly-temp-wrap sm:flex flex-row flex-wrap justify-evenly col-span-3">
            <p>
            12 AM:
-           {" " + weatherData.hourly.temperature2m[0].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[0].toFixed(1) + "°F"}
            </p>
            <p>
             1 AM:
-           {" " + weatherData.hourly.temperature2m[1].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[1].toFixed(1) + "°F"}
            </p>
            <p>
             2 AM:
-           {" " + weatherData.hourly.temperature2m[2].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[2].toFixed(1) + "°F"}
            </p>
            <p>
             3 AM:
-           {" " + weatherData.hourly.temperature2m[3].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[3].toFixed(1) + "°F"}
            </p>
            <p>
             4 AM:
-           {" " + weatherData.hourly.temperature2m[4].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[4].toFixed(1) + "°F"}
            </p>
            <p>
             5 AM:
-           {" " + weatherData.hourly.temperature2m[5].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[5].toFixed(1) + "°F"}
            </p>
            <p>
            6 AM:
-           {" " + weatherData.hourly.temperature2m[6].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[6].toFixed(1) + "°F"}
            </p>
            <p>
             7 AM:
-           {" " + weatherData.hourly.temperature2m[7].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[7].toFixed(1) + "°F"}
            </p>
            <p>
             8 AM:
-           {" " + weatherData.hourly.temperature2m[8].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[8].toFixed(1) + "°F"}
            </p>
            <p>
             9 AM:
-           {" " + weatherData.hourly.temperature2m[9].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[9].toFixed(1) + "°F"}
            </p>
            <p>
             10 AM:
-           {" " + weatherData.hourly.temperature2m[10].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[10].toFixed(1) + "°F"}
            </p>
            <p>
             11 AM:
-           {" " + weatherData.hourly.temperature2m[11].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[11].toFixed(1) + "°F"}
            </p>
            <p>
            12 PM:
-           {" " + weatherData.hourly.temperature2m[12].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[12].toFixed(1) + "°F"}
            </p>
            <p>
             1 PM:
-           {" " + weatherData.hourly.temperature2m[13].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[13].toFixed(1) + "°F"}
            </p>
            <p>
             2 PM:
-           {" " + weatherData.hourly.temperature2m[14].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[14].toFixed(1) + "°F"}
            </p>
            <p>
             3 PM:
-           {" " + weatherData.hourly.temperature2m[15].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[15].toFixed(1) + "°F"}
            </p>
            <p>
             4 PM:
-           {" " + weatherData.hourly.temperature2m[16].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[16].toFixed(1) + "°F"}
            </p>
            <p>
             5 PM:
-           {" " + weatherData.hourly.temperature2m[17].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[17].toFixed(1) + "°F"}
            </p>
            <p>
            6 PM:
-           {" " + weatherData.hourly.temperature2m[18].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[18].toFixed(1) + "°F"}
            </p>
            <p>
             7 PM:
-           {" " + weatherData.hourly.temperature2m[19].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[19].toFixed(1) + "°F"}
            </p>
            <p>
             8 PM:
-           {" " + weatherData.hourly.temperature2m[20].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[20].toFixed(1) + "°F"}
            </p>
            <p>
             9 PM:
-           {" " + weatherData.hourly.temperature2m[21].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[21].toFixed(1) + "°F"}
            </p>
            <p>
             10 PM:
-           {" " + weatherData.hourly.temperature2m[22].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[22].toFixed(1) + "°F"}
            </p>
            <p>
             11 PM:
-           {" " + weatherData.hourly.temperature2m[23].toFixed(1) + "°F"}
+           {" " + weatherData!.hourly.temperature2m[23].toFixed(1) + "°F"}
            </p>
            </div>
            </div>
@@ -240,7 +240,7 @@ function WeatherComponent() {
 }
 
 // Helper function to process the response
-function processWeatherData(response: any) {
+function processWeatherData(response: any): any {
     if(!response) {
       return null;
     }
@@ -309,7 +309,7 @@ function processWeatherData(response: any) {
 
         // Add formatted date and time to the weather data
         // For hourly data
-        weatherData.hourly.formattedTime = weatherData.hourly.time.map(date => {
+         weatherData.hourly.time.map(date => {
             return {
                 formattedDate: formatDate(date),
                 formattedHour: formatHour(date.getHours())
@@ -317,11 +317,11 @@ function processWeatherData(response: any) {
         });
 
         // For daily data
-        weatherData.daily.formattedTime = weatherData.daily.time.map(date => {
-            return formatDate(date);
-        });
+        // weatherData.daily.formattedTime = weatherData.daily.time.map(date => {
+        //     return formatDate(date);
+        // });
         console.log("Processed Weather Data:", weatherData);
-
+      
         return weatherData;
 
     } catch (err) {
