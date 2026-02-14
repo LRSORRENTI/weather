@@ -33,55 +33,62 @@ async function getDailyWeather() {
 		const latitude = response.latitude();
 		const longitude = response.longitude();
 
-		const current = response.current() || {};
-		const hourly = response.hourly() || {};
-		const daily = response.daily() || {};
+		const current = response.current();
+		const hourly = response.hourly();
+		const daily = response.daily();
 
 		console.log('current:', current);
 		console.log('hourly:', hourly);
 		console.log('daily:', daily);
 
+		const currentTime =
+			current ? new Date((Number(current.time()) + utcOffsetSeconds) * 1000) : null;
+
 		const weatherData = {
 			current: {
-				time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-				temperature2m: current.variables ? current.variables(0)!.value() : null,
-				apparentTemperature: current.variables ? current.variables(1)!.value() : null,
-				isDay: current.variables ? current.variables(2)!.value() : null,
-				precipitation: current.variables ? current.variables(3)!.value() : null,
-				rain: current.variables ? current.variables(4)!.value() : null,
-				showers: current.variables ? current.variables(5)!.value() : null,
-				snowfall: current.variables ? current.variables(6)!.value() : null,
-				windSpeed10m: current.variables ? current.variables(7)!.value() : null,
-				cloudCover: current.variables ? current.variables(8)!.value() : null,
+				time: currentTime,
+				temperature2m: current?.variables ? current.variables(0)?.value() ?? null : null,
+				apparentTemperature: current?.variables ? current.variables(1)?.value() ?? null : null,
+				isDay: current?.variables ? current.variables(2)?.value() ?? null : null,
+				precipitation: current?.variables ? current.variables(3)?.value() ?? null : null,
+				rain: current?.variables ? current.variables(4)?.value() ?? null : null,
+				showers: current?.variables ? current.variables(5)?.value() ?? null : null,
+				snowfall: current?.variables ? current.variables(6)?.value() ?? null : null,
+				windSpeed10m: current?.variables ? current.variables(7)?.value() ?? null : null,
+				cloudCover: current?.variables ? current.variables(8)?.value() ?? null : null,
 			},
 			hourly: {
-				time: range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
-					(t) => new Date((t + utcOffsetSeconds) * 1000)
-				),
-				temperature2m: hourly.variables ? hourly.variables(0)!.valuesArray() : [],
-				apparentTemperature: hourly.variables ? hourly.variables(1)!.valuesArray() : [],
-				precipitationProbability: hourly.variables ? hourly.variables(2)!.valuesArray() : [],
-				precipitation: hourly.variables ? hourly.variables(3)!.valuesArray() : [],
-				rain: hourly.variables ? hourly.variables(4)!.valuesArray() : [],
-				showers: hourly.variables ? hourly.variables(5)!.valuesArray() : [],
-				snowfall: hourly.variables ? hourly.variables(6)!.valuesArray() : [],
-				windSpeed10m: hourly.variables ? hourly.variables(7)!.valuesArray() : [],
-				cloudCover: hourly.variables ? hourly.variables(8)!.valuesArray().map(Number) : [], // Ensure this is an array of numbers
+				time: hourly
+					? range(Number(hourly.time()), Number(hourly.timeEnd()), hourly.interval()).map(
+							(t) => new Date((t + utcOffsetSeconds) * 1000)
+					  )
+					: [],
+				temperature2m: hourly?.variables ? hourly.variables(0)?.valuesArray() ?? [] : [],
+				apparentTemperature: hourly?.variables ? hourly.variables(1)?.valuesArray() ?? [] : [],
+				precipitationProbability: hourly?.variables ? hourly.variables(2)?.valuesArray() ?? [] : [],
+				precipitation: hourly?.variables ? hourly.variables(3)?.valuesArray() ?? [] : [],
+				rain: hourly?.variables ? hourly.variables(4)?.valuesArray() ?? [] : [],
+				showers: hourly?.variables ? hourly.variables(5)?.valuesArray() ?? [] : [],
+				snowfall: hourly?.variables ? hourly.variables(6)?.valuesArray() ?? [] : [],
+				windSpeed10m: hourly?.variables ? hourly.variables(7)?.valuesArray() ?? [] : [],
+				cloudCover: hourly?.variables ? hourly.variables(8)?.valuesArray()?.map(Number) ?? [] : [], // Ensure this is an array of numbers
 			},
 			daily: {
-				time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
-					(t) => new Date((t + utcOffsetSeconds) * 1000)
-				),
-				sunrise: daily.variables ? daily.variables(0)!.valuesArray() : [],
-				sunset: daily.variables ? daily.variables(1)!.valuesArray() : [],
+				time: daily
+					? range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
+							(t) => new Date((t + utcOffsetSeconds) * 1000)
+					  )
+					: [],
+				sunrise: daily?.variables ? daily.variables(0)?.valuesArray() ?? [] : [],
+				sunset: daily?.variables ? daily.variables(1)?.valuesArray() ?? [] : [],
 			},
 		};
 
-		function formatDate(date) {
+		function formatDate(date: Date) {
 			return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
 		}
 
-		function formatHour(hour) {
+		function formatHour(hour: number) {
 			const hourFormatted = hour % 12 || 12; // Convert 0 to 12 for 12 AM
 			const amPm = hour < 12 ? 'am' : 'pm';
 			return `${hourFormatted}${amPm}`;
