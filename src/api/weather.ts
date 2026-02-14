@@ -21,7 +21,11 @@ async function getDailyWeather() {
 		const responses = await fetchWeatherApi(url, params);
 		const response = responses[0];
 
-		const range = (start, stop, step) => Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
+		const range = (start: number, stop: number, step: number): number[] =>
+			Array.from(
+				{ length: Math.max(0, Math.ceil((stop - start) / step)) },
+				(_, i) => start + i * step
+			);
 
 		const utcOffsetSeconds = response.utcOffsetSeconds();
 		const timezone = response.timezone();
