@@ -11,7 +11,8 @@ const params = {
 	"precipitation_unit": "inch",
 	"timezone": "America/Chicago",
 	"forecast_days": 1,
-	"forecast_hours": 24
+	"forecast_hours": 24,
+
 };
 const url = "https://api.open-meteo.com/v1/forecast";
 const responses = await fetchWeatherApi(url, params);
