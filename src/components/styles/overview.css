@@ -1,0 +1,29 @@
+.weather-overview {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .weather-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    width: 100px;
+  }
+  
+  .time {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  .icon {
+    font-size: 2em;
+    margin-bottom: 5px;
+  }
+  
+  .temperature {
+    font-size: 1.2em;
+  }
+  
