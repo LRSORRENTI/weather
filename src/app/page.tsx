@@ -17,8 +17,8 @@ type DailyEntry = {
   weatherCode: number;
   maxTemp: number;
   minTemp: number;
-  sunrise: string | null;
-  sunset: string | null;
+  sunrise: string | any;
+  sunset: string | any;
   precipitationProbability: number;
 };
 
@@ -38,8 +38,8 @@ type WeatherData = {
   hourly: HourlyEntry[];
   daily: DailyEntry[];
   meta: {
-    timezone: string;
-    timezoneAbbreviation: string;
+    timezone: string | any;
+    timezoneAbbreviation: string | any;
     latitude: number;
     longitude: number;
   };
