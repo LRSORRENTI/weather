@@ -9,7 +9,7 @@ const weatherIcons = {
   storm: '⛈️',
 };
 
-const getWeatherIcon = (cloudCover, precipitationProbability) => {
+const getWeatherIcon = (cloudCover: any, precipitationProbability: any) => {
   if (precipitationProbability > 50) {
     return weatherIcons.rain;
   }
